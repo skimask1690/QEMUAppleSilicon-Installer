@@ -14,10 +14,7 @@ if ! idevicerestore -v 2>&1 | grep -q lib
 then
   for repo in libtatsu libirecovery idevicerestore
   do
-    if [ ! -d $repo ]
-	then
-      git clone https://github.com/libimobiledevice/$repo
-    fi
+    [ -d $repo ] || git clone https://github.com/libimobiledevice/$repo
 
     cd $repo
 
