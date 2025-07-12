@@ -34,6 +34,7 @@ fi
 
 set +e
 
+# This part will not work as intended
 LOOP=$(sudo losetup --find --show --partscan --sector-size 4096 nvme.1)
 sudo ./apfs-fuse "${LOOP}p1" /mnt
 sudo mount -o remount,rw /mnt
