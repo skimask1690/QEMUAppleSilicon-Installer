@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -e
 
 parted --script /dev/vda mklabel msdos mkpart primary ext4 1MiB 100%
