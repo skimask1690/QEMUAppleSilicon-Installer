@@ -18,11 +18,10 @@ then
 
     cd $repo
 
-    if [[ $repo == "idevicerestore" ]]
-	then
+    if [$repo != "idevicerestore" ] || {
       wget -c https://github.com/user-attachments/files/20678871/idevicerestore.patch
       git apply --reject idevicerestore.patch || true
-    fi
+    }
 
     PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/ ./autogen.sh
     make -j$(nproc)
