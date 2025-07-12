@@ -1,10 +1,9 @@
 #!/bin/bash
 
-if [ $EUID -eq 0 ]
-then
+[ ! $EUID -ne 0 ] || {
   echo "This script should not be run as root. It will request elevated privileges when necessary."
   exit 1
-fi
+}
 
 # Prepare the environment
 set -e
