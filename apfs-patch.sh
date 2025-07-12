@@ -46,4 +46,4 @@ sudo ./apfs-fuse "${LOOP}p1" /mnt
 sudo mount -o remount,rw /mnt # Permission denied
 
 sudo umount /mnt
-sudo losetup -d "${LOOP}"
+sudo losetup -d ${LOOP}
