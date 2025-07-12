@@ -14,6 +14,11 @@ then
   cd QEMUAppleSilicon/build
 fi
 
+[ -f nvme.1 ] || {
+  echo "APFS not found. Exiting..."
+  exit 1
+}
+
 [ ! -d apfs-fuse ] || rm -rf apfs-fuse
 
 [ -f apfs-fuse ] || {
@@ -41,4 +46,4 @@ sudo ./apfs-fuse "${LOOP}p1" /mnt
 sudo mount -o remount,rw /mnt
 
 sudo umount /mnt
-sudo losetup -d /dev/loop0
+sudo losetup -d "${LOOP}"
