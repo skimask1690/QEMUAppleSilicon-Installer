@@ -18,7 +18,7 @@ then
 
     cd $repo
 
-    if [$repo != "idevicerestore" ] || {
+    if [ $repo != "idevicerestore" ] || {
       wget -c https://github.com/user-attachments/files/20678871/idevicerestore.patch
       git apply --reject idevicerestore.patch || true
     }
