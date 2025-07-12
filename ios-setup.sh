@@ -118,11 +118,11 @@ sync
 # Download and boot into Arch Linux
 wget -c https://mirror.rackspace.com/archlinux/iso/latest/archlinux-x86_64.iso
 
-if [ -e /dev/kvm ]
-then
+[ ! -e /dev/kvm ] || {
   SU_FLAG="sudo"
   KVM_FLAG="-enable-kvm"
-fi
+}
+
 echo "Starting Companion VM (USB server)..."
 $SU_FLAG ./qemu-system-x86_64 $KVM_FLAG -m 2G -cdrom archlinux-x86_64.iso \
   -drive file=archvm.qcow2,format=qcow2,if=virtio \
