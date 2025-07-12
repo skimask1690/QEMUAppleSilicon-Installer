@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ ! $EUID -ne 0 ] || {
+[ $EUID -ne 0 ] || {
   echo "This script should not be run as root. It will request elevated privileges when necessary."
   exit 1
 }
