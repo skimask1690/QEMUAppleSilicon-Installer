@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Note: apfs-fuse currently supports read-only mounts only.
 # This script attempts to mount an APFS partition in read-write mode,
 # which is not supported and will not work as intended.
