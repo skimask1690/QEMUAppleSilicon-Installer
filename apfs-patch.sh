@@ -32,8 +32,8 @@ fi
   cd build
   cmake ..
   make
+  mv apfs-fuse ../../.apfs-fuse
   cd ../..
-  mv apfs-fuse/build/apfs-fuse .apfs-fuse
   rm -rf apfs-fuse
   mv .apfs-fuse apfs-fuse
 }
