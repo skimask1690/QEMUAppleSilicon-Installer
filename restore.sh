@@ -19,8 +19,8 @@ then
     cd $repo
 
     [ $repo != "idevicerestore" ] || {
-      wget -c https://github.com/user-attachments/files/20678871/idevicerestore.patch
-      git apply --reject idevicerestore.patch || true
+      wget -c https://raw.githubusercontent.com/ChefKissInc/QEMUAppleSiliconTools/master/idevicerestore.patch
+      git apply idevicerestore.patch
     }
 
     PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/ ./autogen.sh
