@@ -25,8 +25,9 @@ services=(
   "com.apple.locationd"
 )
 
-for s in "${services[@]}"; do
-  esc_s=$(printf '%s\n' "$s" | sed 's:/:\\/:g')
+for s in "${services[@]}"
+do
+  esc_s=$(printf '%s\n' "/System/Library/LaunchDaemons/$s.plist" | sed 's:/:\\/:g')
 
   sudo sed -i '' "/<key>${esc_s}<\/key>/ {
     n
@@ -37,8 +38,8 @@ for s in "${services[@]}"; do
 			<true/>
     }
   }" /Volumes/System/System/Library/xpc/launchd.plist
-  
 done
+
 cd
 diskutil eject /Volumes/System
 
