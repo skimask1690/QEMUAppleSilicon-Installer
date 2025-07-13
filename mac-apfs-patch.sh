@@ -17,6 +17,7 @@ sudo mount -urw /Volumes/System
 cd /Volumes/System/System/Library/Caches/com.apple.dyld
 sudo cp dyld_shared_cache_arm64e dyld_shared_cache_arm64e.orig
 sudo bash -c "$(curl -s https://raw.githubusercontent.com/ChefKissInc/QEMUAppleSiliconTools/master/PatchDYLD.sh)" # Use PatchDYLD.fish for fish shell
+sudo cp /Volumes/System/System/Library/xpc/launchd.plist /Volumes/System/System/Library/xpc/launchd.plist.orig
 sudo plutil -convert xml1 /Volumes/System/System/Library/xpc/launchd.plist
 
 services=(
