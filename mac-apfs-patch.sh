@@ -11,12 +11,18 @@ set -e
   exit 1
 }
 
+# Mount the file system with read/write access
 hdiutil attach -imagekey diskimage-class=CRawDiskImage -blocksize 4096 nvme.1
 sudo diskutil enableownership /Volumes/System
 sudo mount -urw /Volumes/System
+
+# Patch the Dyld Shared Cache
 cd /Volumes/System/System/Library/Caches/com.apple.dyld
 sudo cp dyld_shared_cache_arm64e dyld_shared_cache_arm64e.orig
 sudo bash -c "$(curl -s https://raw.githubusercontent.com/ChefKissInc/QEMUAppleSiliconTools/master/PatchDYLD.sh)" # Use PatchDYLD.fish for fish shell
+cd
+
+# Disable the Problematic Launch Services
 sudo cp /Volumes/System/System/Library/xpc/launchd.plist /Volumes/System/System/Library/xpc/launchd.plist.orig
 sudo plutil -convert xml1 /Volumes/System/System/Library/xpc/launchd.plist
 
@@ -41,7 +47,6 @@ do
   }" /Volumes/System/System/Library/xpc/launchd.plist
 done
 
-cd
 diskutil eject /Volumes/System
 
 echo "APFS successfully patched."
