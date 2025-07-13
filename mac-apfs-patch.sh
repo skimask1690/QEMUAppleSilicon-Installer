@@ -35,8 +35,8 @@ do
     /<dict>/ {
       n
       i\\
-			<key>Disabled</key>\\
-			<true/>
+<key>Disabled</key>\\
+<true/>
     }
   }" /Volumes/System/System/Library/xpc/launchd.plist
 done
