@@ -11,7 +11,7 @@ set -e
   exit 1
 }
 
-# Mount the file system with read/write access
+# Mount the APFS with read/write access
 hdiutil attach -imagekey diskimage-class=CRawDiskImage -blocksize 4096 nvme.1
 sudo diskutil enableownership /Volumes/System
 sudo mount -urw /Volumes/System
