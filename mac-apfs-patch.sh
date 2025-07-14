@@ -32,9 +32,9 @@ services=(
   "com.apple.locationd"
 )
 
-for s in "${services[@]}"
+for service in "${services[@]}"
 do
-  esc_full=$(printf '%s\n' "/System/Library/LaunchDaemons/$s.plist" | sed 's:/:\\/:g')
+  esc_full=$(printf '%s\n' "/System/Library/LaunchDaemons/$service.plist" | sed 's:/:\\/:g')
 
   sudo sed -i '' "/<key>${esc_full}<\/key>/ {
     n
