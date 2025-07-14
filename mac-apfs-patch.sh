@@ -34,9 +34,9 @@ services=(
 
 for s in "${services[@]}"
 do
-  esc_s=$(printf '%s\n' "/System/Library/LaunchDaemons/$s.plist" | sed 's:/:\\/:g')
+  esc_full=$(printf '%s\n' "/System/Library/LaunchDaemons/$s.plist" | sed 's:/:\\/:g')
 
-  sudo sed -i '' "/<key>${esc_s}<\/key>/ {
+  sed -i '' "/<key>${esc_full}<\/key>/ {
     n
     /<dict>/ {
       n
