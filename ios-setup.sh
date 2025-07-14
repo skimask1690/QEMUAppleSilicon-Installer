@@ -31,6 +31,9 @@ fi
 if [ -d ../../QEMUAppleSilicon/build ]
 then
   :
+elif [ -d ../QEMUAppleSilicon/build ]
+then
+  cd build
 elif [ -d QEMUAppleSilicon/build ]
 then
   cd QEMUAppleSilicon/build
