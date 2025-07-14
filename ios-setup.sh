@@ -30,10 +30,10 @@ fi
 # Host setup
 if [ -d ../../QEMUAppleSilicon/build ]
 then
-  :
+  cd ../../QEMUAppleSilicon/build
 elif [ -d ../QEMUAppleSilicon/build ]
 then
-  cd build
+  cd ../QEMUAppleSilicon/build
 elif [ -d QEMUAppleSilicon/build ]
 then
   cd QEMUAppleSilicon/build
