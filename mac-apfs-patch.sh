@@ -41,8 +41,8 @@ do
     /<dict>/ {
       n
       i\\
-<key>Disabled</key>\\
-<true/>
+$(printf '\t\t\t')<key>Disabled</key>\\
+$(printf '\t\t\t')<true/>
     }
   }" /Volumes/System/System/Library/xpc/launchd.plist
 done
