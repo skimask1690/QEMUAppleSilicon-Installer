@@ -1,25 +1,32 @@
 #!/usr/bin/bash
 
+# ===== URL VARIABLES =====
+APPLE_IPSW_URL="https://updates.cdn-apple.com/2020SummerSeed/fullrestores/001-35886/5FE9BE2E-17F8-41C8-96BB-B76E2B225888/iPhone11,8,iPhone12,1_14.0_18A5351d_Restore.ipsw"
+TICKET_URL="https://raw.githubusercontent.com/ChefKissInc/QEMUAppleSiliconTools/master/ticket.shsh2"
+APTICKET_SCRIPT_URL="https://raw.githubusercontent.com/ChefKissInc/QEMUAppleSiliconTools/master/create_apticket.py"
+IDR_PATCH_URL="https://raw.githubusercontent.com/ChefKissInc/QEMUAppleSiliconTools/master/idevicerestore.patch"
+LIBIMOBILEDEVICE_REPO_BASE="https://github.com/libimobiledevice"
+
 # Prepare the environment
 set -e
 
 pacman -Sy --needed --noconfirm base-devel libtool libzip autoconf automake pkg-config git wget unzip python python-pyasn1 python-pyasn1-modules libplist libusbmuxd libimobiledevice-glue libimobiledevice usbmuxd
 
-wget -c https://updates.cdn-apple.com/2020SummerSeed/fullrestores/001-35886/5FE9BE2E-17F8-41C8-96BB-B76E2B225888/iPhone11,8,iPhone12,1_14.0_18A5351d_Restore.ipsw
+wget -c "$APPLE_IPSW_URL"
 [ -f BuildManifest.plist ] || unzip iPhone11,8,iPhone12,1_14.0_18A5351d_Restore.ipsw BuildManifest.plist
-[ -f ticket.shsh2 ] || wget https://raw.githubusercontent.com/ChefKissInc/QEMUAppleSiliconTools/master/ticket.shsh2
-[ -f root_ticket.der ] || python3 -c "$(curl -s https://raw.githubusercontent.com/ChefKissInc/QEMUAppleSiliconTools/master/create_apticket.py)" n104ap BuildManifest.plist ticket.shsh2 root_ticket.der
+[ -f ticket.shsh2 ] || wget "$TICKET_URL"
+[ -f root_ticket.der ] || python3 -c "$(curl -s "$APTICKET_SCRIPT_URL")" n104ap BuildManifest.plist ticket.shsh2 root_ticket.der
 
 if ! idevicerestore -v 2>&1 | grep -q lib
 then
   for repo in libtatsu libirecovery idevicerestore
   do
-    [ -d $repo ] || git clone https://github.com/libimobiledevice/$repo
+    [ -d "$repo" ] || git clone "$LIBIMOBILEDEVICE_REPO_BASE/$repo"
 
-    cd $repo
+    cd "$repo"
 
-    [ $repo != "idevicerestore" ] || {
-      wget -c https://raw.githubusercontent.com/ChefKissInc/QEMUAppleSiliconTools/master/idevicerestore.patch
+    [ "$repo" != "idevicerestore" ] || {
+      wget -c "$IDR_PATCH_URL"
       git apply idevicerestore.patch
     }
 
@@ -27,7 +34,7 @@ then
     make -j$(nproc)
     sudo make install
     cd ..
-    rm -rf $repo
+    rm -rf "$repo"
   done
 fi
 
