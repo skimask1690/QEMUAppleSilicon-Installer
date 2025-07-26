@@ -29,7 +29,7 @@ then
   export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig
 elif ! [ "$(pkg-config --modversion nettle)" = "3.10.1" ]
 then
-  wget -c "$NETTLE_URL"
+  wget -c $NETTLE_URL
   tar -xf nettle-3.10.1.tar.gz
   cd nettle-3.10.1
   ./configure
@@ -52,7 +52,7 @@ then
   cd QEMUAppleSilicon/build
 elif [ ! -d QEMUAppleSilicon ]
 then
-  git clone "$QEMU_GIT_URL"
+  git clone $QEMU_GIT_URL
   cd QEMUAppleSilicon
   git submodule update --init
   mkdir build
@@ -63,7 +63,7 @@ fi
 
 # Download img4tool
 [ -f img4tool ] || {
-  wget -c "$IMG4TOOL_URL"
+  wget -c $IMG4TOOL_URL
   unzip buildroot_ubuntu-latest.zip buildroot_ubuntu-latest/usr/local/bin/img4tool
   chmod +x buildroot_ubuntu-latest/usr/local/bin/img4tool
   mv buildroot_ubuntu-latest/usr/local/bin/img4tool .
@@ -72,7 +72,7 @@ fi
 
 # Download img4lib
 [ -f img4 ] || {
-  wget -c "$IMG4LIB_URL"
+  wget -c $IMG4LIB_URL
   tar -xf img4lib-2020-10-27.tar.gz img4lib-2020-10-27/linux/img4
   [ -f /lib/x86_64-linux-gnu/libcrypto.so.1 ] || sudo ln -s /lib/x86_64-linux-gnu/libcrypto.so /lib/x86_64-linux-gnu/libcrypto.so.1
   mv img4lib-2020-10-27/linux/img4 .
@@ -81,21 +81,21 @@ fi
 
 # Fetch iOS 14.0 beta 5 IPSW
 [ -d iPhone11_8_iPhone12_1_14.0_18A5351d_Restore ] || {
-  wget -c "$IPSW_14_BETA5_URL"
+  wget -c $IPSW_14_BETA5_URL
   unzip iPhone11,8,iPhone12,1_14.0_18A5351d_Restore.ipsw -d iPhone11_8_iPhone12_1_14.0_18A5351d_Restore -x 038-44337-083.dmg
   rm -f iPhone11,8,iPhone12,1_14.0_18A5351d_Restore.ipsw
 }
 
 # Fetch iOS 14.7.1 IPSW
 [ -f sep-firmware.n104.RELEASE.im4p ] || {
-  wget -c "$IPSW_14_7_1_URL"
+  wget -c $IPSW_14_7_1_URL
   unzip iPhone11,8,iPhone12,1_14.7.1_18G82_Restore.ipsw Firmware/all_flash/sep-firmware.n104.RELEASE.im4p
   mv Firmware/all_flash/sep-firmware.n104.RELEASE.im4p .
   rm -rf iPhone11,8,iPhone12,1_14.7.1_18G82_Restore.ipsw Firmware
 }
 
 # Download SHSH blob
-[ -f ticket.shsh2 ] || wget "$TICKET_URL"
+[ -f ticket.shsh2 ] || wget $TICKET_URL
 
 # Create the SEP ticket
 [ -f sep_root_ticket.der ] || python3 -c "$(curl -s $SEPTICKET_PY_URL)" n104ap iPhone11_8_iPhone12_1_14.0_18A5351d_Restore/BuildManifest.plist ticket.shsh2 sep_root_ticket.der
@@ -104,10 +104,10 @@ fi
 [ -f root_ticket.der ] || python3 -c "$(curl -s $APTICKET_PY_URL)" n104ap iPhone11_8_iPhone12_1_14.0_18A5351d_Restore/BuildManifest.plist ticket.shsh2 root_ticket.der
 
 # Download SEP ROM
-[ -f AppleSEPROM-Cebu-B1 ] || wget "$SEPROM_URL"
+[ -f AppleSEPROM-Cebu-B1 ] || wget $SEPROM_URL
 
 # Download Arch Linux ISO
-wget -c "$ARCHLINUX_ISO_URL"
+wget -c $ARCHLINUX_ISO_URL
 
 [ ! -e /dev/kvm ] || {
   SU_FLAG="sudo"
