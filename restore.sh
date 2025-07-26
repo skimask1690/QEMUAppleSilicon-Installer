@@ -12,21 +12,21 @@ set -e
 
 pacman -Sy --needed --noconfirm base-devel libtool libzip autoconf automake pkg-config git wget unzip python python-pyasn1 python-pyasn1-modules libplist libusbmuxd libimobiledevice-glue libimobiledevice usbmuxd
 
-wget -c "$IPSW_14_BETA5_URL"
+wget -c $IPSW_14_BETA5_URL
 [ -f BuildManifest.plist ] || unzip iPhone11,8,iPhone12,1_14.0_18A5351d_Restore.ipsw BuildManifest.plist
-[ -f ticket.shsh2 ] || wget "$TICKET_URL"
-[ -f root_ticket.der ] || python3 -c "$(curl -s "$APTICKET_PY_URL")" n104ap BuildManifest.plist ticket.shsh2 root_ticket.der
+[ -f ticket.shsh2 ] || wget $TICKET_URL
+[ -f root_ticket.der ] || python3 -c "$(curl -s $APTICKET_PY_URL)" n104ap BuildManifest.plist ticket.shsh2 root_ticket.der
 
 if ! idevicerestore -v 2>&1 | grep -q lib
 then
   for repo in libtatsu libirecovery idevicerestore
   do
-    [ -d "$repo" ] || git clone "$LIBIMOBILEDEVICE_REPO_BASE/$repo"
+    [ -d $repo ] || git clone "$LIBIMOBILEDEVICE_REPO_BASE/$repo"
 
-    cd "$repo"
+    cd $repo
 
-    [ "$repo" != "idevicerestore" ] || {
-      wget -c "$IDR_PATCH_URL"
+    [ $repo != "idevicerestore" ] || {
+      wget -c $IDR_PATCH_URL
       git apply idevicerestore.patch
     }
 
@@ -34,7 +34,7 @@ then
     make -j$(nproc)
     sudo make install
     cd ..
-    rm -rf "$repo"
+    rm -rf $repo
   done
 fi
 
