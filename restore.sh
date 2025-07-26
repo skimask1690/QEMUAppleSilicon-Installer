@@ -12,10 +12,10 @@ set -e
 
 pacman -Sy --needed --noconfirm base-devel libtool libzip autoconf automake pkg-config git wget unzip python python-pyasn1 python-pyasn1-modules libplist libusbmuxd libimobiledevice-glue libimobiledevice usbmuxd
 
-wget -c "$APPLE_IPSW_URL"
+wget -c "IPSW_14_BETA5_URL"
 [ -f BuildManifest.plist ] || unzip iPhone11,8,iPhone12,1_14.0_18A5351d_Restore.ipsw BuildManifest.plist
 [ -f ticket.shsh2 ] || wget "$TICKET_URL"
-[ -f root_ticket.der ] || python3 -c "$(curl -s "$APTICKET_SCRIPT_URL")" n104ap BuildManifest.plist ticket.shsh2 root_ticket.der
+[ -f root_ticket.der ] || python3 -c "$(curl -s "$APTICKET_PY_URL")" n104ap BuildManifest.plist ticket.shsh2 root_ticket.der
 
 if ! idevicerestore -v 2>&1 | grep -q lib
 then
