@@ -103,16 +103,15 @@ fi
 [ -f AppleSEPROM-Cebu-B1 ] || wget $SEPROM_URL
 
 # Create the disks
-[ -f nvme.1 ]        || ./qemu-img create -f raw nvme.1 16G # Can also be 32G
-[ -f nvme.2 ]        || ./qemu-img create -f raw nvme.2 8M
-[ -f nvme.3 ]        || ./qemu-img create -f raw nvme.3 128K
-[ -f nvme.4 ]        || ./qemu-img create -f raw nvme.4 8K
-[ -f nvram ]         || ./qemu-img create -f raw nvram 8K
-[ -f nvme.6 ]        || ./qemu-img create -f raw nvme.6 4K
-[ -f nvme.7 ]        || ./qemu-img create -f raw nvme.7 1M
-[ -f nvme.8 ]        || ./qemu-img create -f raw nvme.8 3M
-[ -f sep_nvram ]     || ./qemu-img create -f raw sep_nvram 2K
-[ -f sep_ssc ]       || ./qemu-img create -f raw sep_ssc 128K
+[ -f root ]         || ./qemu-img create -f raw root 16G # Can also be 32G
+[ -f firmware ]     || ./qemu-img create -f raw firmware 8M
+[ -f syscfg ]       || ./qemu-img create -f raw syscfg 128K
+[ -f ctrl_bits ]    || ./qemu-img create -f raw ctrl_bits 8K
+[ -f nvram ]        || ./qemu-img create -f raw nvram 8K
+[ -f effaceable ]   || ./qemu-img create -f raw effaceable 4K
+[ -f panic_log ]    || ./qemu-img create -f raw panic_log 1M
+[ -f sep_nvram ]    || ./qemu-img create -f raw sep_nvram 2K
+[ -f sep_ssc ]      || ./qemu-img create -f raw sep_ssc 128K
 
 [ -f archvm.qcow2 ]  || ./qemu-img create -f qcow2 archvm.qcow2 20G
 
