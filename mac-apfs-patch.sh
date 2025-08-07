@@ -4,15 +4,15 @@
 
 set -e
 
-[ ! -f QEMUAppleSilicon/build/nvme.1 ] || cd QEMUAppleSilicon/build
+[ ! -f QEMUAppleSilicon/build/root ] || cd QEMUAppleSilicon/build
 
-[ -f nvme.1 ] || {
+[ -f root ] || {
   echo "APFS not found. Exiting..."
   exit 1
 }
 
 # Mount the APFS with read/write access
-hdiutil attach -imagekey diskimage-class=CRawDiskImage -blocksize 4096 nvme.1
+hdiutil attach -imagekey diskimage-class=CRawDiskImage -blocksize 4096 root
 sudo diskutil enableownership /Volumes/System
 sudo mount -urw /Volumes/System
 
