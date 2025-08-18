@@ -125,6 +125,8 @@ wget -c $ARCHLINUX_ISO_URL
   KVM_FLAG="-enable-kvm"
 }
 
+sudo -v
+
 echo "Starting Companion VM (USB server)..."
 $SU_FLAG ./qemu-system-x86_64 $KVM_FLAG -m 2G -cdrom archlinux-x86_64.iso \
   -drive file=archvm.qcow2,format=qcow2,if=virtio \
