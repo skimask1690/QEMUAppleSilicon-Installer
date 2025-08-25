@@ -113,7 +113,7 @@ fi
 [ -f sep_nvram ]    || ./qemu-img create -f raw sep_nvram 2K
 [ -f sep_ssc ]      || ./qemu-img create -f raw sep_ssc 128K
 
-[ -f archvm.qcow2 ]  || ./qemu-img create -f qcow2 archvm.qcow2 20G
+[ -f archvm.qcow2 ] || ./qemu-img create -f qcow2 archvm.qcow2 20G
 
 sync
 
