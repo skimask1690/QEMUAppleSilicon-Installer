@@ -110,7 +110,7 @@ fi
 [ -f nvram ]        || ./qemu-img create -f raw nvram 8K
 [ -f effaceable ]   || ./qemu-img create -f raw effaceable 4K
 [ -f panic_log ]    || ./qemu-img create -f raw panic_log 1M
-[ -f sep_nvram ]    || ./qemu-img create -f raw sep_nvram 2K
+[ -f sep_nvram ]    || ./qemu-img create -f raw sep_nvram 64K
 [ -f sep_ssc ]      || ./qemu-img create -f raw sep_ssc 128K
 
 [ -f archvm.qcow2 ] || ./qemu-img create -f qcow2 archvm.qcow2 20G
