@@ -1,8 +1,13 @@
 #!/bin/bash
 
-# NOTE: This script must be run on macOS
+# NOTE: This script must be run on macOS.
 
 set -e
+
+[ "$(uname)" = "Darwin" ] || {
+    echo This script must be run on macOS.
+    exit
+}
 
 [ ! -f QEMUAppleSilicon/build/root ] || cd QEMUAppleSilicon/build
 
